@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head></head>
+
+<body>
+
+   <h3>
+      <a href="{{ url_for('show_all') }}">
+         Wertpapier-Portfolio anzeigen
+      </a>
+   </h3>
+
+   <hr />
+   {%- for message in get_flashed_messages() %}
+   {{ message }}
+   {%- endfor %}
+
+   <table>
+      <colgroup>
+         <col span="1" style="width: 15%;">
+         <col span="1" style="width: 15%;">
+         <col span="1" style="width: 15%;">
+         <col span="1" style="width: 45%;">
+         <col span="1" style="width: 10%;">
+      </colgroup>
+      <thead>
+         <tr>
+            <th style="text-align:left">Name</th>
+            <th style="text-align:left">Acronym</th>
+            <th style="text-align:left">Gesamt</th>
+            <th style="text-align:center">Besitz</th>
+         </tr>
+      </thead>
+
+      <tbody>
+         {% for stock in stocks %}
+         <tr>
+            <td>{{ stock.name }}</td>
+            <td>{{ stock.acronym }}</td>
+            <td>0€</td>
+            <td>
+               <table style="width: 100%">
+                  <colgroup>
+                     <col span="1" style="width: 40%;">
+                     <col span="1" style="width: 20%;">
+                     <col span="1" style="width: 40%;">
+                  </colgroup>
+                  <tbody>
+                     {% for owning in stock.ownings %}
+                     <tr>
+                        <td style="text-align:right">{{ owning.quantity }}</td>
+                        <td style="text-align:center">*</td>
+                        <td style="text-align:right">{{ owning.buy_price }}€</td>
+                        <td style="text-align:right"><a href=/delete/{{owning.id}}><input type = "submit" value = "Delete" ></td>
+                     </tr>
+                     {% endfor %}
+                  </tbody>
+               </table>
+            </td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+
+   <h3>Wertpaper hinzufügen (<a href="{{ url_for('new') }}">Hinzufügen</a>)</h3>
+
+</body>
+
+</html>
