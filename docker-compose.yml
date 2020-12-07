@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  stocks:
+    image: stocks
+    container_name: stocks
+    build: .
+    ports:
+      - 8000:8000
+      - 5000:5000
+    environment: 
+      - TZ=Europe/Berlin 
+      - STOCKS_DB=./stocks.db
+      - STOCKS_DB_HOST=
+      - STOCKS_DB_PORT=
+      - STOCKS_DB_USER=
+      - STOCKS_DB_PWD=
+      - INFLUXDB_HOST=
+      - INFLUXDB_PORT=
+      - INFLUXDB_DB=
+    volumes: 
+      - ./stocks.db:/app/stocks.db
